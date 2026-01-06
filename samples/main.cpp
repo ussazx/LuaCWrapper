@@ -18,7 +18,8 @@ std::tuple<int, float, bool, const char*, void*> f2(int a, float b, bool c, cons
 }
 Lua_global_add_cfunc(f2) //添加到全局环境
 
-//使用LuaReturn作为lua返回值，方法返回值必须为void
+//使用LuaReturn作为lua返回值，方法返回类型必须为void
+//using LuaReturn for return value for lua, return type must be void
 void f3(LuaReturn& ret, int a, float b, bool c, const char* d, void* e)
 {
 	ret.Push(a);
@@ -27,9 +28,10 @@ void f3(LuaReturn& ret, int a, float b, bool c, const char* d, void* e)
 	ret.Push(d);
 	ret.Push(e);
 }
-Lua_global_add_cfunc(f3) //添加到全局环境
+Lua_global_add_cfunc(f3) //添加到全局环境 add function to global
 
-//入参为table时，须使用LuaIdx类型
+//入参为lua table时，须使用LuaIdx类型
+//if param is a lua table, param type should be LuaIdx 
 int f4(LuaIdx t, int a, int b)
 {
 	int n;
@@ -39,7 +41,7 @@ int f4(LuaIdx t, int a, int b)
 	t.SetValue(a, b);
 	return a + b;
 }
-Lua_global_add_cfunc(f4) //添加到全局环境
+Lua_global_add_cfunc(f4)
 
 
 class ClassA //wrapped ClassA
@@ -61,7 +63,7 @@ public:
 	{
 		std::cout << "ClassA static_f1 called." << std::endl;
 	}
-	Lua_wrap_cpp_class(ClassA, Lua_ctor_void, Lua_mf(f1), Lua_mf(static_f1))
+	Lua_wrap_cpp_class(ClassA, Lua_ctor_void, Lua_mf(f1), Lua_mf(static_f1)) //wrap the class
 };
 
 class ClassA2 //none wrapped ClassA2
@@ -94,8 +96,7 @@ int main()
 
 	LuaState lua;
 	
-	//a = 1
-	lua.SetValue("a", 1);
+	lua.SetValue("a", 1); //a = 1
 	lua.Run("print(a)");
 
 	int type; //lua type
@@ -103,36 +104,31 @@ int main()
 	type = lua.GetValue("a", &n);
 	std::cout << n << std::endl << std::endl;
 
-	//a = {} a[1] = 2
-	lua.SetValue("a", 1, 2);
+	lua.SetValue("a", 1, 2); //a = {} a[1] = 2
 	lua.Run("print(a[1])");
 	
 	type = lua.GetValue("a", 1, &n);
 	std::cout << n << std::endl << std::endl;
 
-	//a[2] = a[1]
-	lua.GetValue("a", 1, LuaSetTo("a", 2));
+	lua.GetValue("a", 1, LuaSetTo("a", 2)); //a[2] = a[1]
 	lua.Run("print(a[2])");
 
-	//a[true] = {abc = 'def123'}
-	lua.SetValue("a", true, "abc", "def123");
+	lua.SetValue("a", true, "abc", "def123"); //a[true] = {abc = 'def123'}
 	lua.Run("print(a[true].abc)");
 	
 	const char* c;
 	lua.GetValue("a", true, "abc", &c);
 	std::cout << c << std::endl << std::endl;
 
-	//a[123] = load("return e")
-	lua.SetValue("a", 123, LuaLoad("return e"));
+	lua.SetValue("a", 123, LuaLoad("return e")); //a[123] = load("return e")
 
-	//e is nil
-	lua.Run("print(a[123]())");
+	lua.Run("print(a[123]())"); //e is nil
 
 	//set ENV of a[123] width table t 
 	lua.Run("t = {e = 1}");
 	lua.SetValue("a", 123, LuaFEnv(), LuaGet("t"));
-	// e is 1
-	lua.Run("print(a[123]())");
+	
+	lua.Run("print(a[123]())"); // e is 1
 
 	//将包装后的f1 C++方法赋给f1 assign f1 with wrapped f1 C++ method
 	lua.SetValue("f1", Lua_cf(f1));
