@@ -1,5 +1,5 @@
 #pragma once
-#include "../LuaWrapper/LuaGlobalReflect.h"
+#include "../LuaCWrapper/LuaGlobalReflect.h"
 #include <iostream>
 
 class ClassA //wrapped ClassA

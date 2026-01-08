@@ -1,5 +1,5 @@
 #pragma once
-#include "../LuaWrapper/LuaGlobalReflect.h"
+#include "../LuaCWrapper/LuaGlobalReflect.h"
 #include <iostream>
 
 inline int f1(int a, int b)
@@ -7,6 +7,7 @@ inline int f1(int a, int b)
 	return a + b;
 }
 
+//使用std::tuple可以返回多个值 std::tuple can return multiple values
 inline std::tuple<int, float, bool, const char*, void*> f2(int a, float b, bool c, const char* d, void* e)
 {
 	return { a, b, c, d, e };
@@ -27,9 +28,9 @@ Lua_global_add_cfunc(f3) //添加到全局环境 add function to global
 
 //入参为lua table时，须使用LuaIdx类型
 //if param is a lua table, param type should be LuaIdx 
-inline int f4(LuaIdx t, int a, int b)
+inline size_t f4(LuaIdx t, size_t a, size_t b)
 {
-	int n;
+	size_t n;
 	t.GetValue(a, &n);
 	std::cout << "get t[a]: " << n << std::endl;
 	

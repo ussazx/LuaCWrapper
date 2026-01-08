@@ -1,5 +1,5 @@
 #pragma once
-#include "../LuaWrapper/LuaState.h"
+#include "../LuaCWrapper/LuaState.h"
 #include <iostream>
 
 inline void LuaStateTest(LuaState& lua)
@@ -32,7 +32,7 @@ inline void LuaStateTest(LuaState& lua)
 
 	lua.Run("print(a[123]())"); //e is nil
 
-	//set ENV of a[123] width table t 
+	//set function ENV of a[123] width table t 
 	lua.Run("t = {e = 1}");
 	lua.SetValue("a", 123, LuaFEnv(), LuaGet("t"));
 

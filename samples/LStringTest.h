@@ -1,5 +1,5 @@
 #pragma once
-#include "../LuaWrapper/LuaUtility.h"
+#include "../LuaCWrapper/LuaUtility.h"
 #include <iostream>
 #ifdef WIN32
 #include <windows.h>
