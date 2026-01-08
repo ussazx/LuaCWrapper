@@ -15,14 +15,20 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="LuaStateTest.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FunctionTest.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassTest.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="LStringTest.h">
+      <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="pch.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>

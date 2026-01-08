@@ -1,7 +1,6 @@
 //***************************************************************************************
-// Effects.h by ussa (C) 2023-2026 All Rights Reserved.
+// Effects.h by ussa (C) 2026 All Rights Reserved.
 // Licensed under the MIT License.
-//
 //***************************************************************************************
 
 #pragma once
