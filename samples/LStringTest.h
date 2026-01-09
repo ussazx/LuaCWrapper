@@ -24,5 +24,7 @@ inline void LStringTest(LuaState& lua)
 
 	lua.Run(conv.to_bytes(L"s = LString('') s = s .. '一二三四五12345abcde' fs(s)").c_str());
 
+	lua.Run(conv.to_bytes(L"s2 = LString(s)  fs(s2)").c_str());
+
 	lua.Run("s = s:substr(5, 5) print(s:utf8())");
 }
