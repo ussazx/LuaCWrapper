@@ -14,12 +14,12 @@ int main()
 	LuaState::SetErrorFunc(OnLuaError);
 
 	LuaState lua; //LuaState初始化方法1. LuaState initialize method 1
-
-	int top = lua.GetTop();
 	
 	//lua_State* L = luaL_newstate();
 	//luaL_openlibs(L);
 	//LuaState lua(L); //LuaState初始化方法2. LuaState initialize method 2
+
+	int top = lua.GetTop();
 
 	LuaRegGlobalReflected(lua.Lua()); //将全局的C++方法或类注册到lua. Register global functions and classes to lua
 

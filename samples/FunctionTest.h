@@ -44,7 +44,7 @@ inline void FunctionTest(LuaState& lua)
 	//将包装后的C++方法f1赋给f1. Assign f1 with wrapped C++ method f1
 	lua.SetValue("f1", Lua_cf(f1));
 
-	//在lua中调用f1 call f1 in lua
+	//在lua中调用f1. Call f1 in lua
 	lua.Run("print(f1(1, 1))");
 
 	int n;

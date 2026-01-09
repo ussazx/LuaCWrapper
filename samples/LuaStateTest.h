@@ -48,7 +48,9 @@ inline void LuaStateTest(LuaState& lua)
 	lua.SetValue("a3", LuaGet("a2"), 5);
 	lua.Run("print(a3[a2])");
 
-	//getmetatable(a3).__index = {z = w}
+	lua.Run("z = {} setmetatable(z, {z = 1}) print(getmetatable(z).z)");
+
+	//setmetatable(a3, {__index = {z = w}})
 	lua.SetValue("a3", LuaMeta(), "__index", "z", "w");
 	lua.Run("print(a3.z)");
 
