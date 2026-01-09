@@ -13,7 +13,7 @@ int main()
 {
 	LuaState::SetErrorFunc(OnLuaError);
 
-	LuaState lua; //LuaState初始化方法1 LuaState initialize method 1
+	LuaState lua; //LuaState初始化方法1. LuaState initialize method 1
 
 	int top = lua.GetTop();
 	
