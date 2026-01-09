@@ -8,7 +8,7 @@
 inline void fs(LString s)
 {
 #ifdef WIN32
-	OutputDebugString(s.c_str());
+	OutputDebugString(s.c_str());//show as unicode string
 	OutputDebugString(L"\n");
 #endif
 }
