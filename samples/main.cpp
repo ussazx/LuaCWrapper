@@ -21,7 +21,7 @@ int main()
 	//luaL_openlibs(L);
 	//LuaState lua(L); //LuaState初始化方法2. LuaState initialize method 2
 
-	LuaRegGlobalReflected(lua.Lua()); //注册全局的lua方法. Register global functions and classes to lua
+	LuaRegGlobalReflected(lua.Lua()); //将全局的C++方法或类注册到lua. Register global functions and classes to lua
 
 	std::cout << "-----LuaStateTest-----" << std::endl;
 	LuaStateTest(lua);
