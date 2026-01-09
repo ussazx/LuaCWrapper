@@ -6,7 +6,6 @@
 #pragma once
 #include "lua.hpp"
 #include <tuple>
-#include <stdint.h>
 #include <assert.h>
 
 struct LuaMeta {};
@@ -53,6 +52,16 @@ inline void LuaPushValue(lua_State* lua, const lua_Idx& idx)
 	lua_pushvalue(lua, idx.idx);
 }
 
+inline void LuaPushValue(lua_State* lua, short v)
+{
+	lua_pushinteger(lua, v);
+}
+
+inline void LuaPushValue(lua_State* lua, unsigned short v)
+{
+	lua_pushinteger(lua, v);
+}
+
 inline void LuaPushValue(lua_State* lua, lua_Integer v)
 {
 	lua_pushinteger(lua, v);
@@ -63,7 +72,7 @@ inline void LuaPushValue(lua_State* lua, Lua_int_type2 v)
 	lua_pushinteger(lua, v);
 }
 
-inline void LuaPushValue(lua_State* lua, uint32_t v)
+inline void LuaPushValue(lua_State* lua, unsigned int v)
 {
 	lua_pushinteger(lua, v);
 }
@@ -78,12 +87,10 @@ inline void LuaPushValue(lua_State* lua, unsigned long v)
 	lua_pushinteger(lua, v);
 }
 
-#ifdef _M_X64
-inline void LuaPushValue(lua_State* lua, uint64_t v)
+inline void LuaPushValue(lua_State* lua, unsigned long long v)
 {
 	lua_pushinteger(lua, v);
 }
-#endif
 
 inline void LuaPushValue(lua_State* lua, lua_Number v)
 {

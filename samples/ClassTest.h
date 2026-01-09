@@ -52,7 +52,10 @@ public:
 };
 Lua_global_add_cpp_class(ClassB) //添加到全局环境
 
-//LuacObjNew类型返回的对象由lua回收 object returned by the type of LuacObjNew will be collected by lua
+//LuacObj和LuacObjNew类型接受一个注册过的C++对象，LuacObj用于入参，LuacObjNew用于返回
+//LuacObj type and LuacObjNew type accept a registered C++ object, LuacObj for input param and LuacObjNew for return value
+//LuacObjNew类型返回的对象由lua回收
+//Object returned by the type of LuacObjNew will be collected by lua
 LuacObjNew<ClassB> f5(LuacObj<ClassA> a, LuacObj<ClassB> b, int num)
 {
 	a->f1();
@@ -61,20 +64,10 @@ LuacObjNew<ClassB> f5(LuacObj<ClassA> a, LuacObj<ClassB> b, int num)
 }
 Lua_global_add_cfunc(f5)
 
-class ClassT
-{
-public:
-	ClassT(int n) : m_num(n) {}
-
-	int GetNum() { return m_num; }
-
-	int m_num;
-};
-
 
 void ClassTest(LuaState& lua)
 {
-	//ClassA is not global reflected, so register ClassA
+	//ClassA is not global reflected, so register ClassA here
 	LuaRegisterCppClass<ClassA>(lua.Lua());
 
 	//instantiate c1 from ClassA and call f1, static_f1
@@ -82,6 +75,7 @@ void ClassTest(LuaState& lua)
 
 	//collect c1
 	lua.Run("c1 = nil collectgarbage('collect')");
+	std::cout << std::endl;
 
 	//ClassB is global reflected, instantiate c1 from ClassB and call f1, static_f1 and f2
 	lua.Run("c2 = ClassB(1) c2:f1() c2.static_f1() print(c2:f2(1))");
@@ -90,9 +84,11 @@ void ClassTest(LuaState& lua)
 
 	//collect c2
 	lua.Run("c2 = nil collectgarbage('collect')");
+	std::cout << std::endl;
 
 	//collect c3
 	lua.Run("c3 = nil collectgarbage('collect')");
+	std::cout << std::endl;
 
 	ClassA a;
 	lua.SetValue("a", Lua_set_cobj(&a)); //a由C++回收 a will be collected by C++

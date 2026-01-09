@@ -33,7 +33,7 @@ LuaMultiArg(LuaSetTo)
 
 struct LuaLoad
 {
-	LuaLoad(void* c, size_t n = 0) : code((char*)c), len(n == 0 ? strlen((char*)c) : n) {}
+	LuaLoad(void* c, size_t n) : code((char*)c), len(n) {}
 	LuaLoad(const char* c, size_t n = 0) : code(c), len(n == 0 ? strlen(c) : n) {}
 	const char* code;
 	size_t len;
@@ -817,6 +817,11 @@ public:
 	{
 		GetValue(idx, t0);
 		return GetValue(idx, t1...);
+	}
+
+	int Run(void* code, size_t len) const
+	{
+		return LoadRequired(nullptr, (const char*)code, len);
 	}
 
 	int Run(const char* code, size_t len = 0) const

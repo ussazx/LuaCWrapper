@@ -12,7 +12,7 @@ inline std::tuple<int, float, bool, const char*, void*> f2(int a, float b, bool 
 {
 	return { a, b, c, d, e };
 }
-Lua_global_add_cfunc(f2) //添加到全局环境
+Lua_global_add_cfunc(f2) //添加到全局环境 add function to global
 
 //使用LuaReturn作为lua返回值，方法返回类型必须为void
 //using LuaReturn for return value for lua, return type must be void
@@ -24,7 +24,7 @@ inline void f3(LuaReturn& ret, int a, float b, bool c, const char* d, void* e)
 	ret.Push(d);
 	ret.Push(e);
 }
-Lua_global_add_cfunc(f3) //添加到全局环境 add function to global
+Lua_global_add_cfunc(f3)
 
 //入参为lua table时，须使用LuaIdx类型
 //if param is a lua table, param type should be LuaIdx 
@@ -41,18 +41,18 @@ Lua_global_add_cfunc(f4)
 
 inline void FunctionTest(LuaState& lua)
 {
-	//将包装后的f1 C++方法赋给f1 assign f1 with wrapped f1 C++ method
+	//将包装后的C++方法f1赋给f1. Assign f1 with wrapped C++ method f1
 	lua.SetValue("f1", Lua_cf(f1));
 
 	//在lua中调用f1 call f1 in lua
 	lua.Run("print(f1(1, 1))");
 
 	int n;
-	//在C++调用f1, n为返回值 call f1 in C++， n for return value
+	//在C++调用f1, n为返回值. Call f1 in C++， n for return value
 	lua.GetValue("f1", LuaCall(1, 2), &n);
 	std::cout << n << std::endl << std::endl;
 
-	//将n作为userdata赋给n assign n width n as userdata
+	//将n作为userdata赋给n. Assign n width n as userdata
 	lua.SetValue("n", &n);
 
 	//call f2 in lua

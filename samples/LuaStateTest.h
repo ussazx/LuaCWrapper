@@ -9,8 +9,12 @@ inline void LuaStateTest(LuaState& lua)
 
 	int type; //lua type
 	int n;
+	
 	type = lua.GetValue("a", &n);
 	std::cout << n << std::endl << std::endl;
+
+	lua.SetValue("a", nullptr); //a = nil
+	lua.Run("print(a)");
 
 	lua.SetValue("a", 1, 2); //a = {} a[1] = 2
 	lua.Run("print(a[1])");
@@ -32,7 +36,7 @@ inline void LuaStateTest(LuaState& lua)
 
 	lua.Run("print(a[123]())"); //e is nil
 
-	//set function ENV of a[123] width table t 
+	//使用table t设置a[123]的方法ENV. Set table t to function ENV of a[123]
 	lua.Run("t = {e = 1}");
 	lua.SetValue("a", 123, LuaFEnv(), LuaGet("t"));
 
