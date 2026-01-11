@@ -37,8 +37,7 @@ int main()
 
 	Assert(lua.GetTop() == top); //lua栈须保持平衡. Lua stack should maintain balance
 
-	//lua_close(L); //初始化方法2需要删除lua_State*. Initialize method 2 need to delete lua_State* manually
-	//delete = L;
+	//lua_close(L); //初始化方法2需要关闭lua_State*. Initialize method 2 need to close lua_State* manually
 
 	_getch();
 }
