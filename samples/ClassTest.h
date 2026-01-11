@@ -46,7 +46,9 @@ public:
 		std::cout << "ClassB destructed." << std::endl;
 	}
 	int f3() { return m_num; }
-	Lua_wrap_cpp_class_derived(ClassA, ClassB, Lua_ctor(int), Lua_mf(f2), //f2 is from ClassA2
+	//Lua_wrap_cpp_class_derived可以继承基类包装过的方法
+	//Lua_wrap_cpp_class_derived can inherit wrapped methods from base class
+	Lua_wrap_cpp_class_derived(ClassA, ClassB, Lua_ctor(int), Lua_mf(f2), //f2 is from ClassA2 not wrapped, so wrap it here
 		Lua_mf(f3));
 	int m_num;
 };
